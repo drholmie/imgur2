@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -97,21 +98,21 @@
 
 								<select class="form-control"  style="width:60% ;align:center">
 									<option>Choose Category</option>
-  							<option value="Act1">Act1</option>
-  						  <option value="Act2">Act2</opttion>
-  					  	<option value="Act3">Act3</option>
-  							<option value="Act4">Act4</option>
+  							<option value="Act1">Help Wanted</option>
+  						  <option value="Act2">Adopting Strays</opttion>
+  					  	<option value="Act3">Feeding Folks</option>
+  							<option value="Act4">Cleaning the Streets(Being Robin)</option>
                 </select>
 								<br>
 							</div>
-							
+
 								<div class="fileupload fileupload-new" data-provides="fileupload">
 									<span class="btn btn-primary "><span class="fileupload-new">Choose Image</span>
 									<input class="btn btn-primary" name="image" type="file" /></span>
 									<span class="fileupload-preview"></span>
 									<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
 								</div>
-							
+
 							<input class="btn btn-primary btn-lg" name="submit" value="Post!" type="submit"/>
 							</form>
 							</div>
@@ -148,14 +149,14 @@
 				</form>
 				<input id="0" type="submit" name="upvote" value="Upvote" class="btn btn-primary btn-lg" onclick="cli(this)" >
 				<input id="-1" type="submit" name="delete" value="Delete" class="btn btn-primary btn-lg" onclick="cli(this)">
-			        
+
 				</div>
 		 </div>
 		</div>
 
-	
-		
-		
+
+
+
 	</div>
 </section>
 <script>
@@ -183,7 +184,7 @@ up.textContent=u;
 e.disabled='true';
   xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                
+
             }
         };
 xmlhttp.open("GET", "upvote.php?upvote=" + u+","+e.id , true);
@@ -195,7 +196,7 @@ xmlhttp.send();
 
 if(isset($_POST["submit"])){
     $cap=$_POST["cap"];
-    
+
     $check = getimagesize($_FILES["image"]["tmp_name"]);
     if($check !== false){
         $image = $_FILES['image']['tmp_name'];
@@ -204,48 +205,48 @@ if(isset($_POST["submit"])){
         /*
          * Insert image data into database
          */
-        
+
         //DB details
         $dbHost     = 'localhost';
         $dbUsername = 'phpmyadmin';
         $dbPassword = 'maymaystone';
         $dbName     = 'phpmyadmin';
-        
+
         //Create connection and select DB
         $db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
-        
+
         // Check connection
         if($db->connect_error){
             die("Connection failed: " . $db->connect_error);
         }
-        
+
         $dataTime = date("Y-m-d H:i:s");
         $upvotes =0;
-	
+
         //Insert image content into database
         $insert = $db->query("INSERT into images (image, created, caption, upvotes) VALUES ('$imgContent', '$dataTime','$cap', '$upvotes')");
         if($insert){
             echo "<script>alert('File uploaded successfully');</script>";
         }else{
             echo "File upload failed, please try again.";
-        } 
+        }
     }else{
         echo "Please select an image file to upload.";
     }
 }
 ?>
-					<?php 
+					<?php
 					//DB details
 					$dbHost     = 'localhost';
 					$dbUsername = 'phpmyadmin';
 					$dbPassword = 'maymaystone';
 					$dbName     = 'phpmyadmin';
-		
+
 					//Create connection and select DB
 					$db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
 					  //Get image data from database
 					    $result = $db->query("SELECT id,image,caption,upvotes FROM images;");
-					    
+
 					    if($result->num_rows > 0){
 						while($imgData = $result->fetch_assoc()){
 						//Render image
@@ -253,7 +254,7 @@ if(isset($_POST["submit"])){
 						$id=$imgData['id'];
 						$up=$imgData['upvotes'];
 						//echo "<script>alert('$id');</script>";
-						header("Content-type: image/jpg"); 
+						header("Content-type: image/jpg");
 						echo "<script>\n";
 						echo "var dolly=document.querySelector('#dolly');\n";
 						echo "var clone=dolly.cloneNode(true);\n";
